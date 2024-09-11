@@ -2,6 +2,8 @@
 #include <string.h>
 #include <ctype.h>
 
+/*2 strings comparison Activity*/
+
 void lowerCase(char str[]);
 int isReversible(char str1[], char str2[]);
 
