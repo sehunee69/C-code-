@@ -1,57 +1,80 @@
-#include <stdio.h> 
+#include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 
-/*2 strings comparison Activity*/
-
-void lowerCase(char str[]);
-int isReversible(char str1[], char str2[]);
+void lower(char str[]);
+int compare(char str1[], char str2[]);
+int compare2(char str1[], char str2[]);
 
 int main() {
-	
-	char str1[100], str2[100];
-	
-	printf("Enter first string: ");
-	scanf("%s", &str1);
-	printf("Enter second string: ");
-	scanf("%s", &str2);
-	
-	lowerCase(str1);
-	lowerCase(str2);
-	
-	if(isReversible(str1, str2)) {
-	    printf("Output: True");
-	} else {
-	    printf("Output: False");
-	}
-	
-	return 0;
+    
+    char str1[100];
+    char str2[100];
+    
+    printf("Enter string 1: ");
+    scanf(" %[^\n]s", &str1);
+    printf("Enter string 2: ");
+    scanf(" %[^\n]s", &str2);
+    
+    lower(str1);
+    lower(str2);
+    
+    if(compare(str1, str2)) {
+        printf("Output: True");
+    } else {
+        if(compare2(str1, str2)) {
+            printf("Output: True");
+        } else {
+            printf("Output: False");
+        }
+    }
+    
+    return 0;
+    
 }
 
-void lowerCase(char str[]) {
+void lower(char str[]) {
     
     int i;
     
-    for(i = 0; str[i]; i++) {
+    for(i = 0; i < str[i]; i++) {
         str[i] = tolower(str[i]);
     }
+    
 }
 
-int isReversible(char str1[], char str2[]) {
+int compare(char str1[], char str2[]) {
     
     int len1 = strlen(str1);
     int len2 = strlen(str2);
-    int i;
+    int i, j;
     
     if(len1 != len2) {
         return 0;
     }
     
-    for(i = 0; i < len1; i++) {
-        if(str1[i] != str2[len2 - i - 1]) {
+    j = 0;
+    for(i = len1; i > 0; i--) {
+        if(str1[j] != str2[i - 1]) {
+            return 0;
+        }
+        j++;
+    }
+    
+    return 1;
+}
+
+int compare2(char str1[], char str2[]) {
+    
+    int len = strlen(str1);
+    int i;
+    
+    for(i = 0; i < len; i++) {
+        if(str1[i] != str2[i]) {
             return 0;
         }
     }
     
     return 1;
 }
+
