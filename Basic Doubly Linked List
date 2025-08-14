@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct ListNode {
+    struct ListNode* prev;
+    int val;
+    struct ListNode* next;
+};
+
+struct ListNode* addToEmpty(struct ListNode* head, int data) {
+    
+    head = malloc(sizeof(struct ListNode));
+    head->prev = NULL;
+    head->val = data;
+    head->next = NULL;
+    
+    return head;
+}
+
+struct ListNode* insertBeg(struct ListNode* head, int data) {
+    
+    struct ListNode* temp = malloc(sizeof(struct ListNode));
+    temp->prev = NULL;
+    temp->val = data;
+    temp->next = NULL;
+    temp->next = head;
+    head->prev = temp;
+    head = temp;
+    
+    return head;
+    
+    
+}
+
+int main() {
+    
+    struct ListNode* head = NULL;
+    struct ListNode* curr;
+    int data;
+    
+    printf("Enter value: ");
+    scanf("%d", &data);
+    
+    head = addToEmpty(head, 60);
+    head = insertBeg(head, data);
+    
+    curr = head;
+    
+    while(curr != NULL) {
+        printf("%d ", curr->val);
+        curr = curr->next;
+    }
+    
+    return 0;
+}
