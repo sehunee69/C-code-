@@ -1,0 +1,110 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct node{
+    int elem;
+    struct node *link;
+}Nodetype, *NodePtr, *List;
+
+void initList(List *list);
+bool insertFront(List *list, int item);
+bool insertSorted(List *list, int item);
+void displayList(List list);
+
+int main() {
+    
+    List myList;
+    initList(&myList);
+    
+    // displayList(myList);
+    // insertFront(&myList, 10);
+    // displayList(myList);
+    // insertFront(&myList, 15);
+    // displayList(myList);
+    // insertFront(&myList, 5);
+    // displayList(myList);
+    // insertFront(&myList, 7);
+    // displayList(myList);
+    
+    displayList(myList);
+    insertSorted(&myList, 10);
+    displayList(myList);
+    insertSorted(&myList, 15);
+    displayList(myList);
+    insertSorted(&myList, 7);
+    displayList(myList);
+    insertSorted(&myList, 5);
+    displayList(myList);
+    
+    return 0;
+}
+
+void initList(List *list) {
+    
+    *list = NULL;
+}
+
+NodePtr createList() {
+    
+    List list;
+    list = NULL;
+    
+    return list;
+}
+
+bool insertFront(NodePtr *list, int item) {
+    
+    NodePtr temp = malloc(sizeof(struct node));
+    
+    if(!temp) {
+        return false;
+    }
+    
+    temp->elem = item;
+    temp->link = *list;
+    *list = temp;
+
+    return true;
+}
+
+bool insertSorted(List *list, int item) {
+    
+    List temp = malloc(sizeof(struct node));
+    
+    List *trav;
+    
+    for(trav = list; *trav != NULL && item > (*trav)->elem; trav = &(*trav)->link)
+    {}
+        temp->elem = item;
+        temp->link = *trav;
+        *trav = temp;
+        
+    
+}
+
+void displayList(List list) {
+    
+    printf("List ( ");
+    while(list) {
+        printf("%d", list->elem);
+        if(list->link != NULL) {
+            printf("->");
+        }
+        list = list->link;
+    }
+    
+    printf(" )\n");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
