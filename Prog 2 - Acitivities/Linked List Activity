@@ -1,0 +1,98 @@
+    #include <stdio.h>
+    #include <stdlib.h>
+    
+    typedef struct {
+    	char productName[50];
+    	int price;
+    }Product;
+    
+    typedef struct node {
+    	Product data;
+    	struct node* next;
+    }Node, *nodeptr;
+    
+    void insertLast(Node** head, Product S);
+    void insertInto(nodeptr *head, Product S, int pos);
+    void applyDiscount(Node** head, int input);
+    void displayList(Node* head);
+    
+    int main () {
+    	
+    	Node* head = NULL;
+    	
+    	Product S = {"MILK", 70};
+    	Product S1 = {"CHOCOLATE", 110};
+    	Product S2 = {"MEAT", 169};
+    	Product S3 = {"EGGS", 55};
+    	Product S4 = {"BACON", 95};
+    	Product S5 = {"CELERY", 68};
+    	insertLast(&head, S);
+    	insertLast(&head, S1);
+    	insertLast(&head, S2);
+    	insertLast(&head, S3);
+    	insertLast(&head, S4);
+    	insertInto(&head, S5, 3);
+    	
+    	printf("Old Price List:\n");
+    	displayList(head);
+    	
+    	applyDiscount(&head, 10);
+    	
+    	printf("New Price List:\n");
+    	displayList(head);
+    	
+    }
+    
+    void insertLast(Node** head, Product S) {
+    	
+    	Node* newNode = malloc(sizeof(Node));
+    	
+    	newNode->data = S;
+    	newNode->next = NULL;
+    	
+    	while(*head != NULL) {
+    		head = &(*head)->next;
+    	}
+    	
+    	*head = newNode;
+    }
+    
+    void insertInto(nodeptr *head, Product S, int pos) {
+        
+        nodeptr newNode = malloc(sizeof(Node));
+        int count;
+        nodeptr currentPos = *head;
+        
+        newNode->data = S;
+        
+        for(count = 0; currentPos != NULL && count < pos - 1; count++) {
+            currentPos = currentPos->next;
+        }
+        
+        if(currentPos != NULL) {
+            newNode->next = currentPos->next;
+            currentPos->next = newNode;
+        }
+    }
+    
+    void applyDiscount(Node** head, int input) {
+        
+        float discount = 0;
+        float discountedPrice = 0;
+        
+        discount = (float)input / 100;
+        
+        while(*head != NULL) {
+            discountedPrice = (*head)->data.price * discount;
+            (*head)->data.price = (*head)->data.price - discountedPrice;
+            head = &(*head)->next;
+        }
+    }
+    void displayList(Node* head) {
+    
+        while (head != NULL){
+            printf("%s | P%d\n", head->data.productName, head->data.price);
+            head = head->next;
+        }
+        printf("\n");   
+    }
