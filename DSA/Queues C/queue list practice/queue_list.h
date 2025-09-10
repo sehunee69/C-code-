@@ -11,12 +11,12 @@ typedef struct {
     int rear;
 } List;
 
-void initQueue(List);
+void initQueue(List*);
 bool enqueue(List*, Data elems);
 bool dequeue(List*);
 bool isEmpty(List);
 bool isFull(List);
-void front(List);
+Data front(List);
 void display(List);
 void visualize(List);
 
